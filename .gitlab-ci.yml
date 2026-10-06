@@ -1,0 +1,15 @@
+image: node:22-bookworm-slim
+
+stages:
+  - verify
+
+verify:
+  stage: verify
+  variables:
+    NEXT_TELEMETRY_DISABLED: "1"
+  script:
+    - npm ci --no-audit --no-fund
+    - npm run seed:check
+    - npm test
+    - npm run typecheck
+    - npm run build
